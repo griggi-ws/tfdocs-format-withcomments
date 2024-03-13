@@ -27,7 +27,7 @@ import (
 
 func main() {
 	plugin.Serve(&plugin.ServeOpts{
-		Name:    "template",
+		Name:    "withcomments",
 		Version: "0.1.0",
 		Printer: printerFunc,
 	})
