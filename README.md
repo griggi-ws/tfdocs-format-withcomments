@@ -1,4 +1,4 @@
-# tfdocs-format-template
+# tfdocs-format-withcomments
 
 `tfdocs-format-template` is a minimal [terraform-docs] plugin that is built with
 [plugin SDK] and  is meant to be used as a template for implementing new plugin.
@@ -19,8 +19,8 @@ Optionally for releasing:
 In order to install a plugin the following steps are needed:
 
 - download the plugin and place it in `~/.tfdocs.d/plugins` (or `./.tfdocs.d/plugins`)
-- make sure the plugin file name is `tfdocs-format-<NAME>` (e.g `<NAME>` should be `template`)
-- modify `formatter` of `.terraform-docs.yml` file to be `<NAME>`
+- make sure the plugin file name is `tfdocs-format-<NAME>` (e.g `<NAME>` should be `withcomments`)
+- modify `formatter` of `.terraform-docs.yml` file to be `withcomments`
 
 **Important notes:**
 
