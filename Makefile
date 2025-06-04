@@ -1,4 +1,4 @@
-BUILD_NAME := tfdocs-format-template
+BUILD_NAME := tfdocs-format-withcomments
 
 BUILD_DIR     := bin
 PLUGIN_FOLDER ?= ~/.tfdocs.d/plugins

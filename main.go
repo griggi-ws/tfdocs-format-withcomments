@@ -19,6 +19,9 @@ package main
 import (
 	_ "embed" //nolint
 
+	gotemplate "text/template"
+
+	"github.com/terraform-docs/terraform-docs/format"
 	"github.com/terraform-docs/terraform-docs/plugin"
 	"github.com/terraform-docs/terraform-docs/print"
 	"github.com/terraform-docs/terraform-docs/template"
@@ -28,7 +31,7 @@ import (
 func main() {
 	plugin.Serve(&plugin.ServeOpts{
 		Name:    "withcomments",
-		Version: "0.1.0",
+		Version: "1.0.0",
 		Printer: printerFunc,
 	})
 }
@@ -39,8 +42,21 @@ var tplCustom []byte
 // printerFunc the function being executed by the plugin client.
 func printerFunc(config *print.Config, module *terraform.Module) (string, error) {
 	tpl := template.New(config,
-		&template.Item{Name: "custom", Text: string(tplCustom)},
+		&template.Item{Name: "custom", Text: string(tplCustom), TrimSpace: true},
 	)
+	tpl.CustomFunc(gotemplate.FuncMap{
+		"type": func(t string) string {
+			inputType, _ := format.PrintFencedCodeBlock(t, "")
+			return inputType
+		},
+		"value": func(v string) string {
+			var result = "n/a"
+			if v != "" {
+				result, _ = format.PrintFencedCodeBlock(v, "")
+			}
+			return result
+		},
+	})
 
 	rendered, err := tpl.Render("custom", module)
 	if err != nil {
